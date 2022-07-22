@@ -1,86 +1,122 @@
-import React from 'react'
-import {Formik, useFormik} from 'formik';
+import React from 'react';
+import { Formik, useFormik } from 'formik';
+import * as Yup from 'yup';
 const Contact = () => {
-  const handleSubmit = (values)=>{
+  function handleSubmit(values) {
     console.log(values);
+  }
+  const initialValues = {
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+  };
 
-};
-const initialValues = {
-name: '',
-email: '',
-subject: '',
-message: '',
+  const validationSchema = Yup.object().shape({
+    name: Yup.string().required('Name is required').max(8, 'Max 8'),
+    email: Yup.string().required('Email is required').email('Invalid email'),
+    message: Yup.string().required('message is req'),
+  });
 
-};
-const formik = useFormik({
+  //   const validateSchema = Yup.object().shape({
+  //     first_name: Yup.string().required('Required'),
+  //     last_name: Yup.string().required('Required'),
+  //     email: Yup.string().email('Invalid email format').required('Required'),
+  //     // profile_image: Yup.string(),
+  //     phone_number: Yup.string(),
+  //     mobile: Yup.string(),
+  //     whatsapp: Yup.string(),
+  //   });
+  const formik = useFormik({
     initialValues: initialValues,
     onSubmit: handleSubmit,
+    validationSchema: validationSchema,
+  });
 
-});
+  return (
+    <form
+      id='contactForm'
+      name='contactForm'
+      className='contactForm'
+      onSubmit={formik.handleSubmit}
+    >
+      <div className='row'>
+        <div className='col-md-6'>
+          <div className='form-group'>
+            <label className='label'>Full Name</label>
+            <input
+              type='text'
+              className='form-control'
+              name='name'
+              id='name'
+              placeholder='Name'
+              onChange={formik.handleChange}
+            />
 
- 
-    
-      return (
-                            
-        <form method="POST" id="contactForm" name="contactForm" class="contactForm"
-        onSubmit={(e) => handleSubmit(e)}>
-										<div class="row">
-											<div class="col-md-6">
-												<div class="form-group">
-													<label class="label" for="name">Full Name</label>
-													<input type="text"
-                           class="form-control"
-                            name="name" 
-                            id="name" 
-                            placeholder="Name"/>
-                            onChange={formik.handleChange}
-												</div>
-											</div>
-											<div class="col-md-6"> 
-												<div class="form-group">
-													<label class="label" for="email">Email Address</label>
-													<input type="email"
-                           class="form-control"
-                            name="email" 
-                            id="email" 
-                            placeholder="Email"/>
-                            onChange={formik.handleChange}
-												</div>
-											</div>
-											<div class="col-md-12">
-												<div class="form-group">
-													<label class="label" for="subject">Subject</label>
-													<input type="text"
-                           class="form-control"
-                            name="subject" 
-                            id="subject"
-                             placeholder="Subject"/>
-                             onChange={formik.handleChange}
-												</div>
-											</div>
-											<div class="col-md-12">
-												<div class="form-group">
-													<label class="label" for="#">Message</label>
-													<textarea name="message"
-                           class="form-control" 
-                           id="message" 
-                           cols="30" rows="4" 
-                           placeholder="Message">
-                            onChange={formik.handleChange}
+            {formik.touched.name && formik.errors.name ? (
+              <div className='error text-danger'>{formik.errors.name}</div>
+            ) : null}
+          </div>
+        </div>
+        <div className='col-md-6'>
+          <div className='form-group'>
+            <label className='label'>Email Address</label>
+            <input
+              type='email'
+              className='form-control'
+              name='email'
+              id='email'
+              placeholder='Email'
+              onChange={formik.handleChange}
+            />
+            {formik.touched.email && formik.errors.email ? (
+              <div className='error text-danger'>{formik.errors.email}</div>
+            ) : null}
+          </div>
+        </div>
+        <div className='col-md-12'>
+          <div className='form-group'>
+            <label className='label'>Subject</label>
+            <input
+              type='text'
+              className='form-control'
+              name='subject'
+              id='subject'
+              placeholder='Subject'
+              onChange={formik.handleChange}
+            />
+          </div>
+        </div>
+        <div className='col-md-12'>
+          <div className='form-group'>
+            <label className='label'>Message</label>
+            <textarea
+              name='message'
+              className='form-control'
+              id='message'
+              cols='30'
+              rows='4'
+              placeholder='Message'
+              onChange={formik.handleChange}
+            ></textarea>
+            {formik.touched.message && formik.errors.message ? (
+              <div className='error text-danger'>{formik.errors.message}</div>
+            ) : null}
+          </div>
+        </div>
+        <div className='col-md-12'>
+          <div className='form-group'>
+            <input
+              type='submit'
+              value='Send Message'
+              className='btn btn-primary'
+            />
+            <div className='submitting'></div>
+          </div>
+        </div>
+      </div>
+    </form>
+  );
+};
 
-                           </textarea>
-												</div>
-											</div>
-											<div class="col-md-12">
-												<div class="form-group">
-													<input type="submit" value="Send Message" class="btn btn-primary"/>
-													<div class="submitting"></div>
-												</div>
-											</div>
-										</div>
-									</form>
-      );
-  
-}
-
-export default Contact
+export default Contact;
