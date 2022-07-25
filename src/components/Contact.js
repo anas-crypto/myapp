@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useState }  from 'react';
 import { Formik, useFormik } from 'formik';
 import * as Yup from 'yup';
+
 const Contact = () => {
+ 
+    const [msg, setMsg] = useState("");
+
+
+
+
+
   function handleSubmit(values) {
     console.log(values);
   }
@@ -106,17 +114,20 @@ const Contact = () => {
         </div>
         <div className='col-md-12'>
           <div className='form-group'>
-            <input
-              type='submit'
-              value='Send Message'
-              className='btn btn-primary'
-            />
+           
+           <button type='button' onClick={() => setMsg("Submitted")} >
+            Submit
+            
+           </button>
+           
             <div className='submitting'></div>
           </div>
         </div>
       </div>
     </form>
+    
   );
-};
+            }
+;
 
 export default Contact;

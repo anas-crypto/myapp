@@ -12,6 +12,7 @@ function App() {
         <Routes>
           <Route exact path='/' element={<ContactUs />}></Route>
           <Route exact path='/hooks' element={<Hooks />}></Route>
+          
         </Routes>
       </BrowserRouter>
     </>
