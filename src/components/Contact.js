@@ -12,6 +12,8 @@ const Contact = () => {
 
   function handleSubmit(values) {
     console.log(values);
+    setMsg='submitted';
+    
   }
   const initialValues = {
     name: '',
@@ -115,13 +117,17 @@ const Contact = () => {
         <div className='col-md-12'>
           <div className='form-group'>
            
-           <button type='button' onClick={() => setMsg("Submitted")} >
+           <button>
             Submit
             
            </button>
+           {msg}
            
-            <div className='submitting'></div>
+           
+            <div className='submitting' >{msg}</div>
+            {msg}
           </div>
+
         </div>
       </div>
     </form>
