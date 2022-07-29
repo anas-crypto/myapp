@@ -1,31 +1,32 @@
-import React,{ useEffect, useState} from 'react';
+import React from 'react';
 import axios from 'axios';
-
+import { Formik,useFormik } from 'formik';
 
 const Api = () => {
-  useEffect(() => {
-    setimg(
-      axios.get(`https://catfact.ninja/fact`)
-    )
-  },[]);
-   const [img, setimg] = useState({
-    img:'',
+
+  const formik = useFormik({
+    initialValues: "",
+    onSubmit: handleSubmit,
     
-  });
-    function dog(){
-        setimg(
-            axios.get(`https://catfact.ninja/fact`)
-        
-
-        );
-    }
-       
-
+  });   
+  function handleSubmit(values) {
+    console.log(values);
+    axios.get(`https://api.agify.io?name=${values}`).then((res) => {
+      
+     })
+    
+  }
     
   return (
     <div>
+      <input
+              type='text'
+               name='name'
+              placeholder='Name'
+              
+            />
        
-        <button onClick={dog}>Click Me</button>
+        <button onClick={handleSubmit}>Click Me</button>
         
       
     </div>
